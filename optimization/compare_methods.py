@@ -1,4 +1,5 @@
 import os
+import platform
 from tqdm import tqdm
 import numpy as np
 import matplotlib.pyplot as plt
@@ -11,8 +12,10 @@ def compare_methods(dimension, function, nb_steps, path, seed=None):
     distances = list()
     legend_list = list()
     excess_losses = list()
-
-    x0 = np.random.randn(dimension).astype(np.float128)
+    if platform.system() == "Windows":
+        x0 = np.random.randn(dimension).astype(np.longdouble)
+    else:
+        x0 = np.random.randn(dimension).astype(np.float128)
 
     for alg in tqdm([GradientDescent(parametrization="Constant"),
                      GradientDescent(parametrization="PS variant"),

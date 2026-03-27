@@ -1,6 +1,7 @@
 import os
 import numpy as np
 import sys
+import platform
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from optimization.functions import Quadratic
 from optimization.compare_methods import compare_methods
@@ -11,7 +12,10 @@ kappa = 100000
 
 log_L = 1
 log_mu = log_L - np.log(kappa) / np.log(10)
-eig_list = np.logspace(log_mu, log_L, d).astype(np.float128)
+if platform.system() == "Windows":
+    eig_list = np.logspace(log_mu, log_L, d).astype(np.longdouble)
+else:
+    eig_list = np.logspace(log_mu, log_L, d).astype(np.float128)
 f = Quadratic(eig_list=eig_list)
 
 nb_steps = 2*d
