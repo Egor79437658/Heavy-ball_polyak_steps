@@ -1,6 +1,7 @@
 import os
 import numpy as np
-
+import sys
+sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from optimization.functions import Quadratic
 from optimization.compare_methods import compare_methods
 
